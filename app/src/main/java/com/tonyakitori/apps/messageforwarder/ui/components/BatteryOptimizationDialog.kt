@@ -8,7 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.tonyakitori.apps.messageforwarder.R
 import com.tonyakitori.apps.messageforwarder.utils.BatteryOptimizationHelper
 
 @Composable
@@ -16,14 +18,14 @@ fun BatteryOptimizationDialog(
     onDismiss: () -> Unit
 ) {
     val context = LocalContext.current
-    val manufacturerInfo = BatteryOptimizationHelper.getManufacturerInfo()
+    val manufacturerInfo = BatteryOptimizationHelper.getManufacturerInfo(context)
     val isIgnoringBattery = BatteryOptimizationHelper.isIgnoringBatteryOptimizations(context)
 
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
             Text(
-                text = "Configurar permisos",
+                text = stringResource(R.string.battery_dialog_title),
                 fontWeight = FontWeight.Bold
             )
         },
@@ -50,9 +52,9 @@ fun BatteryOptimizationDialog(
                     ) {
                         Text(
                             text = if (isIgnoringBattery) {
-                                "Optimización de batería: Desactivada"
+                                stringResource(R.string.battery_status_disabled)
                             } else {
-                                "Optimización de batería: Activada (puede causar problemas)"
+                                stringResource(R.string.battery_status_enabled)
                             },
                             style = MaterialTheme.typography.bodyMedium,
                             color = if (isIgnoringBattery) {
@@ -66,7 +68,7 @@ fun BatteryOptimizationDialog(
 
                 if (manufacturerInfo != null) {
                     Text(
-                        text = "Dispositivo ${manufacturerInfo.name} detectado",
+                        text = stringResource(R.string.battery_device_detected, manufacturerInfo.name),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -76,12 +78,12 @@ fun BatteryOptimizationDialog(
                     )
                 } else {
                     Text(
-                        text = "Instrucciones generales",
+                        text = stringResource(R.string.battery_generic_instructions_title),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = BatteryOptimizationHelper.getGenericInstructions(),
+                        text = BatteryOptimizationHelper.getGenericInstructions(context),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -89,7 +91,7 @@ fun BatteryOptimizationDialog(
                 HorizontalDivider()
 
                 Text(
-                    text = "Para que la app funcione correctamente en segundo plano, necesitas desactivar la optimización de batería y activar el inicio automático.",
+                    text = stringResource(R.string.battery_footer_note),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -106,7 +108,7 @@ fun BatteryOptimizationDialog(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Abrir Autostart")
+                        Text(stringResource(R.string.button_open_autostart))
                     }
                 }
 
@@ -117,7 +119,7 @@ fun BatteryOptimizationDialog(
                         },
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("Desactivar optimización")
+                        Text(stringResource(R.string.button_disable_optimization))
                     }
                 }
 
@@ -127,14 +129,14 @@ fun BatteryOptimizationDialog(
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Abrir ajustes de la app")
+                    Text(stringResource(R.string.button_open_app_settings))
                 }
 
                 TextButton(
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Cerrar")
+                    Text(stringResource(R.string.button_close))
                 }
             }
         },

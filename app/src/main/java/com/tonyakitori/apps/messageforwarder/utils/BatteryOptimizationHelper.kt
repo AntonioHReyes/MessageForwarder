@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
+import com.tonyakitori.apps.messageforwarder.R
 
 object BatteryOptimizationHelper {
 
@@ -16,16 +17,11 @@ object BatteryOptimizationHelper {
         val intents: List<Intent>
     )
 
-    private val manufacturerSettings: Map<String, ManufacturerInfo> by lazy {
-        mapOf(
+    private fun manufacturerSettings(context: Context): Map<String, ManufacturerInfo> {
+        return mapOf(
             "xiaomi" to ManufacturerInfo(
-                name = "Xiaomi/Redmi/POCO",
-                instructions = """
-                    1. Ve a Ajustes → Aplicaciones → Gestionar aplicaciones
-                    2. Busca "Message Forwarder"
-                    3. Activa "Autostart" (Inicio automático)
-                    4. En "Ahorro de batería" selecciona "Sin restricciones"
-                """.trimIndent(),
+                name = context.getString(R.string.manufacturer_xiaomi_name),
+                instructions = context.getString(R.string.manufacturer_xiaomi_instructions),
                 intents = listOf(
                     Intent().apply {
                         component = ComponentName(
@@ -42,13 +38,8 @@ object BatteryOptimizationHelper {
                 )
             ),
             "oppo" to ManufacturerInfo(
-                name = "OPPO/Realme",
-                instructions = """
-                    1. Ve a Ajustes → Gestión de aplicaciones
-                    2. Busca "Message Forwarder"
-                    3. Activa "Permitir inicio automático"
-                    4. Desactiva "Optimización de batería"
-                """.trimIndent(),
+                name = context.getString(R.string.manufacturer_oppo_name),
+                instructions = context.getString(R.string.manufacturer_oppo_instructions),
                 intents = listOf(
                     Intent().apply {
                         component = ComponentName(
@@ -65,12 +56,8 @@ object BatteryOptimizationHelper {
                 )
             ),
             "vivo" to ManufacturerInfo(
-                name = "Vivo",
-                instructions = """
-                    1. Ve a Ajustes → Batería → Alta actividad en segundo plano
-                    2. Activa "Message Forwarder"
-                    3. En Gestor de permisos, activa "Inicio automático"
-                """.trimIndent(),
+                name = context.getString(R.string.manufacturer_vivo_name),
+                instructions = context.getString(R.string.manufacturer_vivo_instructions),
                 intents = listOf(
                     Intent().apply {
                         component = ComponentName(
@@ -81,13 +68,8 @@ object BatteryOptimizationHelper {
                 )
             ),
             "huawei" to ManufacturerInfo(
-                name = "Huawei/Honor",
-                instructions = """
-                    1. Ve a Ajustes → Aplicaciones → Aplicaciones
-                    2. Busca "Message Forwarder" → Batería
-                    3. Desactiva "Gestión automática"
-                    4. Activa todas las opciones manualmente
-                """.trimIndent(),
+                name = context.getString(R.string.manufacturer_huawei_name),
+                instructions = context.getString(R.string.manufacturer_huawei_instructions),
                 intents = listOf(
                     Intent().apply {
                         component = ComponentName(
@@ -104,13 +86,8 @@ object BatteryOptimizationHelper {
                 )
             ),
             "samsung" to ManufacturerInfo(
-                name = "Samsung",
-                instructions = """
-                    1. Ve a Ajustes → Cuidado del dispositivo → Batería
-                    2. Toca "Límites de uso en segundo plano"
-                    3. Añade "Message Forwarder" a "Apps que no se suspenden"
-                    4. Desactiva "Poner apps no utilizadas en suspensión"
-                """.trimIndent(),
+                name = context.getString(R.string.manufacturer_samsung_name),
+                instructions = context.getString(R.string.manufacturer_samsung_instructions),
                 intents = listOf(
                     Intent().apply {
                         component = ComponentName(
@@ -121,12 +98,8 @@ object BatteryOptimizationHelper {
                 )
             ),
             "oneplus" to ManufacturerInfo(
-                name = "OnePlus",
-                instructions = """
-                    1. Ve a Ajustes → Batería → Optimización de batería
-                    2. Busca "Message Forwarder"
-                    3. Selecciona "No optimizar"
-                """.trimIndent(),
+                name = context.getString(R.string.manufacturer_oneplus_name),
+                instructions = context.getString(R.string.manufacturer_oneplus_instructions),
                 intents = listOf(
                     Intent().apply {
                         component = ComponentName(
@@ -137,12 +110,8 @@ object BatteryOptimizationHelper {
                 )
             ),
             "asus" to ManufacturerInfo(
-                name = "ASUS",
-                instructions = """
-                    1. Ve a Ajustes → Administración de energía
-                    2. Toca "Auto-start Manager"
-                    3. Activa "Message Forwarder"
-                """.trimIndent(),
+                name = context.getString(R.string.manufacturer_asus_name),
+                instructions = context.getString(R.string.manufacturer_asus_instructions),
                 intents = listOf(
                     Intent().apply {
                         component = ComponentName(
@@ -157,9 +126,9 @@ object BatteryOptimizationHelper {
 
     fun getManufacturer(): String = Build.MANUFACTURER.lowercase()
 
-    fun getManufacturerInfo(): ManufacturerInfo? {
+    fun getManufacturerInfo(context: Context): ManufacturerInfo? {
         val manufacturer = getManufacturer()
-        return manufacturerSettings.entries.firstOrNull { (key, _) ->
+        return manufacturerSettings(context).entries.firstOrNull { (key, _) ->
             manufacturer.contains(key)
         }?.value
     }
@@ -182,7 +151,7 @@ object BatteryOptimizationHelper {
     }
 
     fun openManufacturerSettings(context: Context): Boolean {
-        val info = getManufacturerInfo() ?: return false
+        val info = getManufacturerInfo(context) ?: return false
 
         for (intent in info.intents) {
             try {
@@ -210,10 +179,6 @@ object BatteryOptimizationHelper {
         }
     }
 
-    fun getGenericInstructions(): String = """
-        1. Ve a Ajustes → Aplicaciones → Message Forwarder
-        2. Toca en "Batería" o "Uso de batería"
-        3. Selecciona "Sin restricciones" o "No optimizar"
-        4. Si existe opción de "Autostart" o "Inicio automático", actívala
-    """.trimIndent()
+    fun getGenericInstructions(context: Context): String =
+        context.getString(R.string.battery_generic_instructions)
 }

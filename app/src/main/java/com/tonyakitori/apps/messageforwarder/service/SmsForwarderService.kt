@@ -59,7 +59,13 @@ class SmsForwarderService : Service() {
         Log.d(TAG, "Service started with action: ${intent?.action}")
 
         if (!isServiceRunning) {
-            startForeground(NOTIFICATION_ID, createNotification("Servicio activo", "Esperando mensajes SMS..."))
+            startForeground(
+                NOTIFICATION_ID,
+                createNotification(
+                    getString(R.string.notif_service_active_title),
+                    getString(R.string.notif_service_active_content)
+                )
+            )
             isServiceRunning = true
         }
 
@@ -102,25 +108,28 @@ class SmsForwarderService : Service() {
                 
                 if (!config.isConfigured()) {
                     Log.w(TAG, "Service not configured, skipping SMS forward")
-                    updateNotification("Error", "Bot no configurado")
+                    updateNotification(getString(R.string.notif_error_title), getString(R.string.notif_bot_not_configured))
                     return@launch
                 }
 
-                updateNotification("Reenviando SMS", "De: $sender")
+                updateNotification(getString(R.string.notif_forwarding_title), getString(R.string.notif_forwarding_content, sender))
 
                 val result = smsRepository.forwardSmsToTelegram(smsMessage, config.botToken, config.chatId)
 
                 if (result.isSuccess) {
-                    lastSmsForwarded = "Último: ${sender.take(10)}..."
-                    updateNotification("SMS reenviado", lastSmsForwarded)
+                    lastSmsForwarded = getString(R.string.notif_last_forwarded, sender.take(10))
+                    updateNotification(getString(R.string.notif_forwarded_title), lastSmsForwarded)
                     Log.d(TAG, "SMS forwarded successfully")
                 } else {
-                    updateNotification("Error al reenviar", result.exceptionOrNull()?.message ?: "Error desconocido")
+                    updateNotification(
+                        getString(R.string.notif_forward_error_title),
+                        result.exceptionOrNull()?.message ?: getString(R.string.error_unknown)
+                    )
                     Log.e(TAG, "Failed to forward SMS", result.exceptionOrNull())
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error handling SMS", e)
-                updateNotification("Error", e.message ?: "Error desconocido")
+                updateNotification(getString(R.string.notif_error_title), e.message ?: getString(R.string.error_unknown))
             }
         }
     }
@@ -128,10 +137,10 @@ class SmsForwarderService : Service() {
     private fun createNotificationChannel() {
         val channel = NotificationChannel(
             CHANNEL_ID,
-            "SMS Forwarder Service",
+            getString(R.string.notification_channel_name),
             NotificationManager.IMPORTANCE_LOW
         ).apply {
-            description = "Notificación del servicio de reenvío de SMS"
+            description = getString(R.string.notification_channel_description)
         }
         notificationManager.createNotificationChannel(channel)
     }

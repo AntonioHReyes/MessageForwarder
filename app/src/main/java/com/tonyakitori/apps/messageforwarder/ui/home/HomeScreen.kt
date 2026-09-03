@@ -13,10 +13,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tonyakitori.apps.messageforwarder.R
 import com.tonyakitori.apps.messageforwarder.ui.components.BatteryOptimizationDialog
 import com.tonyakitori.apps.messageforwarder.utils.BatteryOptimizationHelper
 
@@ -43,10 +45,10 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Message Forwarder") },
+                title = { Text(stringResource(R.string.app_name)) },
                 actions = {
                     IconButton(onClick = onNavigateToSettings) {
-                        Icon(Icons.Default.Settings, contentDescription = "Configuración")
+                        Icon(Icons.Default.Settings, contentDescription = stringResource(R.string.cd_settings))
                     }
                 }
             )
@@ -77,7 +79,7 @@ fun HomeScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Estado del Servicio",
+                        text = stringResource(R.string.service_status_title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
@@ -85,7 +87,11 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Text(
-                        text = if (uiState.isServiceActive) "🟢 Activo" else "🔴 Inactivo",
+                        text = if (uiState.isServiceActive) {
+                            stringResource(R.string.status_active)
+                        } else {
+                            stringResource(R.string.status_inactive)
+                        },
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
@@ -93,7 +99,7 @@ fun HomeScreen(
                     if (uiState.isServiceActive) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Los SMS se están reenviando a Telegram",
+                            text = stringResource(R.string.status_active_description),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Center
                         )
@@ -125,9 +131,9 @@ fun HomeScreen(
             ) {
                 Text(
                     text = when {
-                        !uiState.isConfigured -> "Configurar Bot"
-                        uiState.isServiceActive -> "Detener Servicio"
-                        else -> "Iniciar Servicio"
+                        !uiState.isConfigured -> stringResource(R.string.button_configure_bot)
+                        uiState.isServiceActive -> stringResource(R.string.button_stop_service)
+                        else -> stringResource(R.string.button_start_service)
                     },
                     style = MaterialTheme.typography.titleMedium
                 )
@@ -144,14 +150,14 @@ fun HomeScreen(
                         modifier = Modifier.padding(16.dp)
                     ) {
                         Text(
-                            text = "Configuración requerida",
+                            text = stringResource(R.string.config_required_title),
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Necesitas configurar tu Bot Token y Chat ID de Telegram antes de iniciar el servicio.",
+                            text = stringResource(R.string.config_required_body),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onErrorContainer
                         )
@@ -165,15 +171,13 @@ fun HomeScreen(
                         modifier = Modifier.padding(16.dp)
                     ) {
                         Text(
-                            text = "Instrucciones",
+                            text = stringResource(R.string.instructions_title),
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "1. Asegúrate de tener permisos de SMS y notificaciones\n" +
-                                    "2. Activa el servicio con el botón de arriba\n" +
-                                    "3. Los mensajes SMS se reenviarán automáticamente a Telegram",
+                            text = stringResource(R.string.home_instructions_body),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -196,9 +200,9 @@ fun HomeScreen(
                 ) {
                     Text(
                         text = if (isIgnoringBatteryOptimizations) {
-                            "Batería configurada correctamente"
+                            stringResource(R.string.battery_ok_title)
                         } else {
-                            "Configurar permisos de batería"
+                            stringResource(R.string.battery_warning_title)
                         },
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
@@ -211,9 +215,9 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = if (isIgnoringBatteryOptimizations) {
-                            "Toca para ver más opciones de configuración"
+                            stringResource(R.string.battery_ok_body)
                         } else {
-                            "La app puede ser cerrada por el sistema. Toca aquí para configurar los permisos necesarios."
+                            stringResource(R.string.battery_warning_body)
                         },
                         style = MaterialTheme.typography.bodyMedium,
                         color = if (isIgnoringBatteryOptimizations) {

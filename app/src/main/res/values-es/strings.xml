@@ -1,0 +1,83 @@
+<resources>
+    <string name="app_name">Message Forwarder</string>
+
+    <!-- Pantalla de configuración -->
+    <string name="settings_title">Configuración</string>
+    <string name="cd_back">Volver</string>
+    <string name="settings_info_title">ℹ️ Cómo configurar</string>
+    <string name="settings_info_body">1. Abre Telegram y busca @BotFather\n2. Envía /newbot y sigue las instrucciones\n3. Copia el token que te da\n4. Envía un mensaje a tu bot\n5. Visita: api.telegram.org/bot&lt;TOKEN&gt;/getUpdates\n6. Copia el chat_id del resultado</string>
+    <string name="label_bot_token">Bot Token</string>
+    <string name="label_chat_id">Chat ID</string>
+    <string name="button_testing">Probando…</string>
+    <string name="button_test_connection">Probar Conexión</string>
+    <string name="test_success_title">✅ Conexión exitosa</string>
+    <string name="test_success_body">Revisa tu chat de Telegram. Deberías haber recibido un mensaje de prueba.</string>
+    <string name="test_error_title">❌ Error</string>
+    <string name="button_save_config">Guardar Configuración</string>
+
+    <!-- Pantalla principal -->
+    <string name="cd_settings">Configuración</string>
+    <string name="service_status_title">Estado del Servicio</string>
+    <string name="status_active">🟢 Activo</string>
+    <string name="status_inactive">🔴 Inactivo</string>
+    <string name="status_active_description">Los SMS se están reenviando a Telegram</string>
+    <string name="button_configure_bot">Configurar Bot</string>
+    <string name="button_stop_service">Detener Servicio</string>
+    <string name="button_start_service">Iniciar Servicio</string>
+    <string name="config_required_title">Configuración requerida</string>
+    <string name="config_required_body">Necesitas configurar tu Bot Token y Chat ID de Telegram antes de iniciar el servicio.</string>
+    <string name="instructions_title">Instrucciones</string>
+    <string name="home_instructions_body">1. Asegúrate de tener permisos de SMS y notificaciones\n2. Activa el servicio con el botón de arriba\n3. Los mensajes SMS se reenviarán automáticamente a Telegram</string>
+    <string name="battery_ok_title">Batería configurada correctamente</string>
+    <string name="battery_warning_title">Configurar permisos de batería</string>
+    <string name="battery_ok_body">Toca para ver más opciones de configuración</string>
+    <string name="battery_warning_body">La app puede ser cerrada por el sistema. Toca aquí para configurar los permisos necesarios.</string>
+
+    <!-- Diálogo de optimización de batería -->
+    <string name="battery_dialog_title">Configurar permisos</string>
+    <string name="battery_status_disabled">Optimización de batería: Desactivada</string>
+    <string name="battery_status_enabled">Optimización de batería: Activada (puede causar problemas)</string>
+    <string name="battery_device_detected">Dispositivo %1$s detectado</string>
+    <string name="battery_generic_instructions_title">Instrucciones generales</string>
+    <string name="battery_footer_note">Para que la app funcione correctamente en segundo plano, necesitas desactivar la optimización de batería y activar el inicio automático.</string>
+    <string name="button_open_autostart">Abrir Autostart</string>
+    <string name="button_disable_optimization">Desactivar optimización</string>
+    <string name="button_open_app_settings">Abrir ajustes de la app</string>
+    <string name="button_close">Cerrar</string>
+
+    <!-- Nombres de fabricantes (marcas, sin traducción) -->
+    <string name="manufacturer_xiaomi_name">Xiaomi/Redmi/POCO</string>
+    <string name="manufacturer_oppo_name">OPPO/Realme</string>
+    <string name="manufacturer_vivo_name">Vivo</string>
+    <string name="manufacturer_huawei_name">Huawei/Honor</string>
+    <string name="manufacturer_samsung_name">Samsung</string>
+    <string name="manufacturer_oneplus_name">OnePlus</string>
+    <string name="manufacturer_asus_name">ASUS</string>
+
+    <!-- Instrucciones de autostart/batería por fabricante -->
+    <string name="manufacturer_xiaomi_instructions">1. Ve a Ajustes → Aplicaciones → Gestionar aplicaciones\n2. Busca \"Message Forwarder\"\n3. Activa \"Autostart\" (Inicio automático)\n4. En \"Ahorro de batería\" selecciona \"Sin restricciones\"</string>
+    <string name="manufacturer_oppo_instructions">1. Ve a Ajustes → Gestión de aplicaciones\n2. Busca \"Message Forwarder\"\n3. Activa \"Permitir inicio automático\"\n4. Desactiva \"Optimización de batería\"</string>
+    <string name="manufacturer_vivo_instructions">1. Ve a Ajustes → Batería → Alta actividad en segundo plano\n2. Activa \"Message Forwarder\"\n3. En Gestor de permisos, activa \"Inicio automático\"</string>
+    <string name="manufacturer_huawei_instructions">1. Ve a Ajustes → Aplicaciones → Aplicaciones\n2. Busca \"Message Forwarder\" → Batería\n3. Desactiva \"Gestión automática\"\n4. Activa todas las opciones manualmente</string>
+    <string name="manufacturer_samsung_instructions">1. Ve a Ajustes → Cuidado del dispositivo → Batería\n2. Toca \"Límites de uso en segundo plano\"\n3. Añade \"Message Forwarder\" a \"Apps que no se suspenden\"\n4. Desactiva \"Poner apps no utilizadas en suspensión\"</string>
+    <string name="manufacturer_oneplus_instructions">1. Ve a Ajustes → Batería → Optimización de batería\n2. Busca \"Message Forwarder\"\n3. Selecciona \"No optimizar\"</string>
+    <string name="manufacturer_asus_instructions">1. Ve a Ajustes → Administración de energía\n2. Toca \"Auto-start Manager\"\n3. Activa \"Message Forwarder\"</string>
+    <string name="battery_generic_instructions">1. Ve a Ajustes → Aplicaciones → Message Forwarder\n2. Toca en \"Batería\" o \"Uso de batería\"\n3. Selecciona \"Sin restricciones\" o \"No optimizar\"\n4. Si existe opción de \"Autostart\" o \"Inicio automático\", actívala</string>
+
+    <!-- Notificaciones del servicio en primer plano -->
+    <string name="notification_channel_name">SMS Forwarder Service</string>
+    <string name="notification_channel_description">Notificación del servicio de reenvío de SMS</string>
+    <string name="notif_service_active_title">Servicio activo</string>
+    <string name="notif_service_active_content">Esperando mensajes SMS…</string>
+    <string name="notif_error_title">Error</string>
+    <string name="notif_bot_not_configured">Bot no configurado</string>
+    <string name="notif_forwarding_title">Reenviando SMS</string>
+    <string name="notif_forwarding_content">De: %1$s</string>
+    <string name="notif_forwarded_title">SMS reenviado</string>
+    <string name="notif_last_forwarded">Último: %1$s…</string>
+    <string name="notif_forward_error_title">Error al reenviar</string>
+    <string name="error_unknown">Error desconocido</string>
+
+    <!-- Validación de configuración -->
+    <string name="error_fill_all_fields">Por favor completa todos los campos</string>
+</resources>

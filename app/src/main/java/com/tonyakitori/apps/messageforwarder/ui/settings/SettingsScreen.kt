@@ -12,10 +12,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tonyakitori.apps.messageforwarder.R
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,10 +31,10 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Configuración") },
+                title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.cd_back))
                     }
                 }
             )
@@ -56,18 +58,13 @@ fun SettingsScreen(
                     modifier = Modifier.padding(16.dp)
                 ) {
                     Text(
-                        text = "ℹ️ Cómo configurar",
+                        text = stringResource(R.string.settings_info_title),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "1. Abre Telegram y busca @BotFather\n" +
-                                "2. Envía /newbot y sigue las instrucciones\n" +
-                                "3. Copia el token que te da\n" +
-                                "4. Envía un mensaje a tu bot\n" +
-                                "5. Visita: api.telegram.org/bot<TOKEN>/getUpdates\n" +
-                                "6. Copia el chat_id del resultado",
+                        text = stringResource(R.string.settings_info_body),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -76,7 +73,7 @@ fun SettingsScreen(
             OutlinedTextField(
                 value = uiState.botToken,
                 onValueChange = { viewModel.updateBotToken(it) },
-                label = { Text("Bot Token") },
+                label = { Text(stringResource(R.string.label_bot_token)) },
                 modifier = Modifier.fillMaxWidth(),
                 visualTransformation = PasswordVisualTransformation(),
                 singleLine = true
@@ -85,7 +82,7 @@ fun SettingsScreen(
             OutlinedTextField(
                 value = uiState.chatId,
                 onValueChange = { viewModel.updateChatId(it) },
-                label = { Text("Chat ID") },
+                label = { Text(stringResource(R.string.label_chat_id)) },
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
@@ -107,9 +104,9 @@ fun SettingsScreen(
                 }
                 Text(
                     text = if (uiState.isTestingConnection) {
-                        "Probando..."
+                        stringResource(R.string.button_testing)
                     } else {
-                        "Probar Conexión"
+                        stringResource(R.string.button_test_connection)
                     }
                 )
             }
@@ -130,21 +127,21 @@ fun SettingsScreen(
                         when (result) {
                             is TestResult.Success -> {
                                 Text(
-                                    text = "✅ Conexión exitosa",
+                                    text = stringResource(R.string.test_success_title),
                                     style = MaterialTheme.typography.titleSmall,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onPrimaryContainer
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
                                 Text(
-                                    text = "Revisa tu chat de Telegram. Deberías haber recibido un mensaje de prueba.",
+                                    text = stringResource(R.string.test_success_body),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onPrimaryContainer
                                 )
                             }
                             is TestResult.Error -> {
                                 Text(
-                                    text = "❌ Error",
+                                    text = stringResource(R.string.test_error_title),
                                     style = MaterialTheme.typography.titleSmall,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onErrorContainer
@@ -171,7 +168,7 @@ fun SettingsScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = uiState.botToken.isNotBlank() && uiState.chatId.isNotBlank()
             ) {
-                Text("Guardar Configuración")
+                Text(stringResource(R.string.button_save_config))
             }
         }
     }

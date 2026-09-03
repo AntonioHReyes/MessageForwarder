@@ -3,6 +3,7 @@ package com.tonyakitori.apps.messageforwarder.ui.settings
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.tonyakitori.apps.messageforwarder.R
 import com.tonyakitori.apps.messageforwarder.data.local.PreferencesManager
 import com.tonyakitori.apps.messageforwarder.data.remote.TelegramClient
 import com.tonyakitori.apps.messageforwarder.data.repository.SmsRepository
@@ -69,7 +70,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         
         if (currentState.botToken.isBlank() || currentState.chatId.isBlank()) {
             _uiState.value = currentState.copy(
-                testResult = TestResult.Error("Por favor completa todos los campos")
+                testResult = TestResult.Error(getApplication<Application>().getString(R.string.error_fill_all_fields))
             )
             return
         }
@@ -91,7 +92,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                     TestResult.Success
                 } else {
                     TestResult.Error(
-                        result.exceptionOrNull()?.message ?: "Error desconocido"
+                        result.exceptionOrNull()?.message
+                            ?: getApplication<Application>().getString(R.string.error_unknown)
                     )
                 }
             )
