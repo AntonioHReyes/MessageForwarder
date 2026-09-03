@@ -25,7 +25,7 @@ This app captures ALL SMS messages that arrive on your "vault phone" (the one ch
 
 1. **Clone this:**
 ```bash
-git clone https://github.com/YOUR_USERNAME/MessageForwarder.git
+git clone https://github.com/AntonioHReyes/MessageForwarder.git
 cd MessageForwarder
 ```
 
