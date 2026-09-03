@@ -3,7 +3,7 @@ name: Release signed APK
 on:
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: write
